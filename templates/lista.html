@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Jogoteca</title>
+    <link rel="stylesheet" href="../static/bootstrap.css">
   </head>
   <body>
     <div class="container">
@@ -19,11 +20,11 @@
                 </tr>
             </thead>
             <tbody>
-                {% for jogo in jogos %}
+                {% for game in games %}
                 <tr>
-                    <td>{{ jogo.nome }}</td>
-                    <td>{{ jogo.categoria }}</td>
-                    <td>{{ jogo.console }}</td>
+                    <td>{{ game.nome }}</td>
+                    <td>{{ game.categoria }}</td>
+                    <td>{{ game.console }}</td>
                 </tr>
                 {% endfor %}
 

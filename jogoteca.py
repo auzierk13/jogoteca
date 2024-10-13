@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from flask import Flask, render_template, request
+from flask import Flask, redirect, render_template, request
 
 @dataclass
 class Game:
@@ -16,19 +16,19 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('lista.html', titulo='Jogos', jogos=games)
+    return render_template('lista.html', titulo='Games', games=games)
 
 @app.route('/novo')
 def novo():
-    return render_template('novo.html', titulo='Novo Jogo')
+    return render_template('novo.html', titulo='New Game')
 
 @app.route('/criar', methods=['POST',])
 def criar():
     nome = request.form['nome']
     categoria = request.form['categoria']
     console = request.form['console']
-    jogo = Game(nome, categoria, console)
-    games.append(jogo)
-    return render_template('lista.html', titulo='Jogos', jogos=games)
+    game = Game(nome, categoria, console)
+    games.append(game)
+    return redirect("/")
 
 app.run(debug=True)
