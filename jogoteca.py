@@ -1,33 +1,34 @@
-from flask import Flask, render_template, request
+from dataclasses import dataclass
+from flask import Flask, redirect, render_template, request
 
-class Jogo:
-    def __init__(self, nome, categoria, console):
-        self.nome=nome
-        self.categoria=categoria
-        self.console=console
+@dataclass
+class Game:
+    nome: str
+    categoria:str
+    console:str
 
-jogo1 = Jogo('Tetris', 'Puzzle', 'Atari')
-jogo2 = Jogo('God of War', 'Hack n Slash', 'PS2')
-jogo3 = Jogo('Mortal Kombat', 'Luta', 'PS2')
-lista = [jogo1, jogo2, jogo3]
+game1 = Game('Tetris', 'Puzzle', 'Atari')
+game2 = Game('God of War', 'Hack n Slash', 'PS2')
+game3 = Game('Mortal Kombat', 'Luta', 'PS2')
+games = [game1, game2, game3]
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('lista.html', titulo='Jogos', jogos=lista)
+    return render_template('lista.html', titulo='Games', games=games)
 
 @app.route('/novo')
 def novo():
-    return render_template('novo.html', titulo='Novo Jogo')
+    return render_template('novo.html', titulo='New Game')
 
 @app.route('/criar', methods=['POST',])
 def criar():
     nome = request.form['nome']
     categoria = request.form['categoria']
     console = request.form['console']
-    jogo = Jogo(nome, categoria, console)
-    lista.append(jogo)
-    return render_template('lista.html', titulo='Jogos', jogos=lista)
+    game = Game(nome, categoria, console)
+    games.append(game)
+    return redirect("/")
 
 app.run(debug=True)
