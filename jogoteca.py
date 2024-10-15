@@ -31,4 +31,18 @@ def criar():
     games.append(game)
     return redirect("/")
 
+@app.route("/login")
+def login():
+    return render_template("login.html", title= "Login")
+
+@app.route("/autenticar", methods=["POST"])
+def autenticar():
+    user = request.form["user"]
+    passwd = request.form["passwd"]
+
+    if user =="admin" and passwd =="123":
+        return redirect("/novo")
+    else:
+        return redirect("/login")
+
 app.run(debug=True)
