@@ -1,20 +1,26 @@
 {% extends "template.html" %}
-{%block conteudo %}
+{%block content %}
 <form action="/criar" method="post">
         <fieldset>
           <div class="form-group">
+            <p>
             <label for="nome">Nome</label>
             <input type="text" id="nome" name="nome" class="form-control">
+            </p>
           </div>
           <div class="form-group">
+            <p>
             <label for="categoria">Categoria</label>
             <input type="text" id="categoria" name="categoria" class="form-control">
+           </p>
           </div>
           <div class="form-group">
+            <p>
             <label for="console">Console</label>
             <input type="text" id="console" name="console" class="form-control">
+            </p>
           </div>
-          <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
+          <p><button type="submit" class="btn btn-primary btn-salvar">Salvar</button></p>
         </fieldset>
       </form>
 {% endblock %}

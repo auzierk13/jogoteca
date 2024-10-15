@@ -18,7 +18,7 @@ app = Flask(__name__)
 def index():
     return render_template('lista.html', titulo='Games', games=games)
 
-@app.route('/novo')
+@app.route('/novo', methods=["GET"])
 def novo():
     return render_template('novo.html', titulo='New Game')
 
