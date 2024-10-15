@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from flask import Flask, redirect, render_template, request
+from flask import Flask, session, redirect, render_template, request
 
 @dataclass
 class Game:
@@ -13,14 +13,20 @@ game3 = Game('Mortal Kombat', 'Luta', 'PS2')
 games = [game1, game2, game3]
 
 app = Flask(__name__)
-
+app.secret_key = "Aula5"
 @app.route('/')
 def index():
-    return render_template('lista.html', titulo='Games', games=games)
+    if "user" in session:
+        return render_template('lista.html', title='Games', games=games)
+    else:
+        return redirect("/login")
 
 @app.route('/novo', methods=["GET"])
 def novo():
-    return render_template('novo.html', titulo='New Game')
+    if "user" in session:
+        return render_template('novo.html', title='New Game')
+    else:
+        return redirect("/login")
 
 @app.route('/criar', methods=['POST',])
 def criar():
@@ -41,8 +47,13 @@ def autenticar():
     passwd = request.form["passwd"]
 
     if user =="admin" and passwd =="123":
-        return redirect("/novo")
+        session["user"] = user
+        return redirect("/")
     else:
         return redirect("/login")
 
+@app.route("/logon")
+def logon():
+    session.clear()
+    return redirect("/login")
 app.run(debug=True)
